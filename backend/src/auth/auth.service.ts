@@ -11,7 +11,8 @@ export class AuthService {
         @Inject('DATA_SOURCE') private readonly dataSource: DataSource,
       ) {}
     
-      async validarUsuario(email: string, password: string) {
+      async validateUser(body: LoginDTO) {
+        const { email, password } = body;
         const usuario = await this.dataSource.query(
           'SELECT * FROM usuarios WHERE email = ? LIMIT 1',
           [email],
@@ -29,12 +30,11 @@ export class AuthService {
 
     
       async login(body: LoginDTO) {
-        const { email, password } = body;
 
-        const usuario = await this.validarUsuario(email, password);
+        const user = await this.validateUser(body);
     
-        const payload = { id: usuario.id, email: usuario.email };
-        const token = this.jwtService.sign(payload);
+        const payload = { id: user.id, email: user.email, role: user.role };
+        const token = this.jwtService.sign(user);
     
         return { access_token: token };
       }
