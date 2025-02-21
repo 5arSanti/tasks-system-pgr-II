@@ -29,10 +29,7 @@ export class UsersController {
       }
     }
     catch (error) {
-      return {
-        success: false,
-        message: error.message
-      }
+      throw error
     }
   }
 
@@ -43,7 +40,7 @@ export class UsersController {
       await this.usersService.deleteUser(user);
       return { success: true, message: 'Usuario eliminado con éxito' };
     } catch (error) {
-      return { success: false, message: error.message };
+      throw error
     }
   }
 }

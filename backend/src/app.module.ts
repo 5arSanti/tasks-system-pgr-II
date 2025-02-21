@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from './database/database.module';
 import { TasksModule } from './tasks/tasks.module';
+import { SubjectsModule } from './subjects/subjects.module';
 import appConfigurations from './config/app.config';
 
 @Module({
@@ -23,6 +24,7 @@ import appConfigurations from './config/app.config';
     }),
     DatabaseModule,
     TasksModule,
+    SubjectsModule,
   ],
   providers: [AppService],
 })
