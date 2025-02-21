@@ -6,10 +6,15 @@ import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from './database/database.module';
 import { TasksModule } from './tasks/tasks.module';
+import appConfigurations from './config/app.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ 
+      isGlobal: true,
+      load: [appConfigurations],
+
+     }),
     AuthModule,
     UsersModule,
     JwtModule.register({

@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { FilterUsersDTO, RegisterUserDTO, UserIdDTO } from './dto/users.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
 
@@ -34,7 +36,7 @@ export class UsersController {
   }
 
 
-  @Delete('')
+  @Delete()
   async deleteUser(@Query() user: UserIdDTO) {
     try {
       await this.usersService.deleteUser(user);

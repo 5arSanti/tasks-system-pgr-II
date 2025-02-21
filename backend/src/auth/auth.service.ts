@@ -33,8 +33,13 @@ export class AuthService {
 
     const user = await this.validateUser(body);
 
-    const token = this.jwtService.sign(user);
-
+    const payload = { 
+      id: user.id, 
+      correo: user.correo, 
+      rol_id: user.rol_id
+    };
+    const token = this.jwtService.sign({user: payload});
+  
     return { access_token: token };
   }
 }
