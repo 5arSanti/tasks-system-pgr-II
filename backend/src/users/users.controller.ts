@@ -2,8 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@n
 import { UsersService } from './users.service';
 import { FilterUsersDTO, RegisterUserDTO, UserIdDTO } from './dto/users.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, TeacherRoleGuard)
 @Controller('users')
 export class UsersController {
 
