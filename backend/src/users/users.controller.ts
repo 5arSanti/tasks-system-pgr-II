@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { FilterUsersDTO, RegisterUserDTO } from './dto/users.dto';
 
@@ -10,8 +10,8 @@ export class UsersController {
     ) {}
 
     @Get()
-    async getUsers(@Param() usersFilters: FilterUsersDTO) {
-        return this.usersSevice.getUsers(usersFilters);
+    async getUsers(@Query() usersFilters: FilterUsersDTO) {
+        return await this.usersSevice.getUsers(usersFilters);
     }
 
     

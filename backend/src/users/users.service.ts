@@ -52,7 +52,7 @@ export class UsersService {
 
         if (conditions.length === 0) {
             conditions.push('rol_id = ?');
-            values.push(2);
+            values.push(1);
         }
 
         const query = `SELECT * FROM usuarios WHERE ${conditions.join(' OR ')}`;

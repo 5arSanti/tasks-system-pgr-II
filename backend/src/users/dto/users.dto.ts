@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsIn, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, IsStrongPassword, MaxLength, MinLength } from "class-validator";
+import { IsBoolean, IsBooleanString, IsEmail, IsIn, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, IsStrongPassword, MaxLength, MinLength } from "class-validator";
 
 export class RegisterUserDTO {
     @IsNotEmpty()
@@ -39,6 +39,7 @@ export class RegisterUserDTO {
 export class FilterUsersDTO {
     @IsOptional()
     @IsBoolean()
+    @IsBooleanString()
     all_users?: boolean;
 
     @IsOptional()
