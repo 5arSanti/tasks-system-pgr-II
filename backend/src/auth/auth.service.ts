@@ -12,16 +12,16 @@ export class AuthService {
   ) { }
 
   async validateUser(body: LoginDTO) {
-    const { email, password } = body;
+    const { correo, contrasena } = body;
     const usuario = await this.dataSource.query(
       'SELECT * FROM usuarios WHERE correo = ? LIMIT 1',
-      [email],
+      [correo],
     );
 
     if (!usuario.length) throw new UnauthorizedException('Usuario no encontrado');
 
     const user = usuario[0];
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(contrasena, user.contrasena);
 
     if (!isMatch) throw new UnauthorizedException('Contraseña incorrecta');
 
@@ -33,7 +33,6 @@ export class AuthService {
 
     const user = await this.validateUser(body);
 
-    const payload = { id: user.id, email: user.email, role: user.role };
     const token = this.jwtService.sign(user);
 
     return { access_token: token };

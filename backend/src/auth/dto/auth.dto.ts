@@ -5,10 +5,10 @@ export class LoginDTO implements LoginInterface {
     @IsNotEmpty()
     @IsString()
     @IsEmail()
-    email: string;
+    correo: string;
 
     @IsNotEmpty()
     @IsString()
     @IsStrongPassword()
-    password: string;
+    contrasena: string;
 }

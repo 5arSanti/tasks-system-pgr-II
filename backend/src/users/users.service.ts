@@ -1,8 +1,8 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { FilterUsersDTO, RegisterUserDTO } from './dto/users.dto';
+import { FilterUsersDTO, RegisterUserDTO, UserIdDTO } from './dto/users.dto';
 
 
 @Injectable()
@@ -15,18 +15,18 @@ export class UsersService {
         const { id, nombre, apellido, correo, contrasena, rol_id } = userInfo;
 
         const usuarioExistente = await this.dataSource.query(
-            'SELECT * FROM usuarios WHERE correo = ? LIMIT 1',
-            [correo],
+            'SELECT * FROM usuarios WHERE correo = ? OR id = ? LIMIT 1',
+            [correo, id],
         );
 
         if (usuarioExistente.length > 0) {
-            throw new BadRequestException('El correo ya está en uso');
+            throw new BadRequestException('Este usuario ya se encuentra registrado');
         }
 
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(contrasena, saltRounds);
 
-        await this.dataSource.query(
+        await this.dataSource.query( 
             `INSERT INTO usuarios (id, nombre, apellido, correo, contrasena, rol_id) VALUES (?, ?, ?, ?, ?, ?)`,
             [id, nombre, apellido, correo, hashedPassword, rol_id],
         );
@@ -58,4 +58,14 @@ export class UsersService {
         const query = `SELECT * FROM usuarios WHERE ${conditions.join(' OR ')}`;
         return await this.dataSource.query(query, values);
     }
+
+    async deleteUser(user: UserIdDTO) {
+        const result = await this.dataSource.query('DELETE FROM usuarios WHERE id = ?', [user.id]);
+    
+        if (result.affectedRows === 0) {
+          throw new NotFoundException('Usuario no encontrado');
+        }
+    
+        return { message: 'Usuario eliminado correctamente' };
+      }
 }

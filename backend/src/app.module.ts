@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from './database/database.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DatabaseModule } from './database/database.module';
       signOptions: { expiresIn: '1h' },
     }),
     DatabaseModule,
+    TasksModule,
   ],
   providers: [AppService],
 })

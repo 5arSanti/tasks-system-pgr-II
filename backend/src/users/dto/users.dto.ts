@@ -50,3 +50,11 @@ export class FilterUsersDTO {
     @IsBoolean()
     teachers?: boolean;
 }
+
+export class UserIdDTO {
+    @IsNotEmpty()
+    @IsNumber()
+    @IsPositive()
+    @MinLength(1)
+    id: number;
+}
