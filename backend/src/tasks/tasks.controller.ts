@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Put, Param, Delete, UseGuards, Get, InternalServerErrorException, HttpException } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
-import { TasksService } from './tasks.service';
+import { TasksService } from './services/tasks.service';
 import { CreateTaskDto, UpdateTaskDto, UserTaskDto } from './dto/tasks.dto';
 
 @UseGuards(JwtAuthGuard, TeacherRoleGuard)

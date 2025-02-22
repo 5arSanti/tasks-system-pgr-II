@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UserTaskDto } from 'src/tasks/dto/tasks.dto';
-import { TasksService } from 'src/tasks/tasks.service';
+import { ValidateTasksService } from 'src/tasks/services/validate-tasks.service';
 import { ValidateUsersService } from 'src/users/services/validate-user.service';
 import { DataSource } from 'typeorm';
 
@@ -9,13 +9,13 @@ export class EnrollService {
     constructor(
         @Inject('DATA_SOURCE') private readonly dataSource: DataSource,
         private readonly validateUsersService: ValidateUsersService,
-        private readonly tasksService: TasksService
+        private readonly validateTasksService: ValidateTasksService
     ) { }
 
     async enrollTask(assignTaskDto: UserTaskDto) {
         const { tarea_id, usuario_id } = assignTaskDto;
 
-        await this.tasksService.validateTask(tarea_id);
+        await this.validateTasksService.validateTask(tarea_id);
 
         const user = await this.validateUsersService.validateUser(usuario_id);
 
@@ -34,7 +34,7 @@ export class EnrollService {
     async deleteEnrolledTask(userTaskInfo: UserTaskDto) {
         const { tarea_id, usuario_id } = userTaskInfo;
 
-        await this.tasksService.validateTask(tarea_id);
+        await this.validateTasksService.validateTask(tarea_id);
 
         const user = await this.validateUsersService.validateUser(usuario_id);
 
