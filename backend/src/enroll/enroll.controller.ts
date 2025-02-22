@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, InternalServerErrorException, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { UserTaskDto } from 'src/tasks/dto/tasks.dto';
 import { EnrollService } from './enroll.service';
@@ -18,7 +18,9 @@ export class EnrollController {
         return await this.enrollService.enrollTask(assignTaskDto);
       } 
       catch (error) {
-        throw new InternalServerErrorException(error.message);  
+        if (error instanceof HttpException) { throw error };
+
+        throw new InternalServerErrorException(error.response);  
       }
     }
   
@@ -29,6 +31,8 @@ export class EnrollController {
         return await this.enrollService.deleteEnrolledTask(userTaskInfo);
       } 
       catch (error) {
+        if (error instanceof HttpException) { throw error };
+
         throw new InternalServerErrorException(error.response);  
       }
     }
@@ -40,7 +44,9 @@ export class EnrollController {
         return await this.enrollService.getEnrolledTasks(user_id);
       } 
       catch (error) {
-        throw new InternalServerErrorException(error.message);
+        if (error instanceof HttpException) { throw error };
+
+        throw new InternalServerErrorException(error.response);  
       }
     }
 }

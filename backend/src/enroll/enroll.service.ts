@@ -1,15 +1,15 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UserTaskDto } from 'src/tasks/dto/tasks.dto';
 import { TasksService } from 'src/tasks/tasks.service';
-import { UsersService } from 'src/users/users.service';
+import { ValidateUsersService } from 'src/users/services/validate-user.service';
 import { DataSource } from 'typeorm';
 
 @Injectable()
 export class EnrollService {
     constructor(
         @Inject('DATA_SOURCE') private readonly dataSource: DataSource,
-        private readonly usersService: UsersService,
-        private readonly tasksService: TasksService,
+        private readonly validateUsersService: ValidateUsersService,
+        private readonly tasksService: TasksService
     ) { }
 
     async enrollTask(assignTaskDto: UserTaskDto) {
@@ -17,9 +17,9 @@ export class EnrollService {
 
         await this.tasksService.validateTask(tarea_id);
 
-        const user = await this.usersService.validateUser(usuario_id);
+        const user = await this.validateUsersService.validateUser(usuario_id);
 
-        if (user[0].rol_id !== 2) throw new BadRequestException('El usuario no es un estudiante');
+        if (user.rol_id !== 2) throw new BadRequestException('El usuario no es un estudiante');
 
         const query = `
             INSERT INTO estados_tareas (tarea_id, usuario_id, estado)
@@ -36,9 +36,9 @@ export class EnrollService {
 
         await this.tasksService.validateTask(tarea_id);
 
-        const user = await this.usersService.validateUser(usuario_id);
+        const user = await this.validateUsersService.validateUser(usuario_id);
 
-        if (user[0].rol_id !== 2) throw new NotFoundException('El usuario no es un estudiante');
+        if (user.rol_id !== 2) throw new NotFoundException('El usuario no es un estudiante');
 
         const query = `
             DELETE FROM estados_tareas
@@ -51,7 +51,7 @@ export class EnrollService {
     }
 
     async getEnrolledTasks(usuario_id: number) {
-        await this.usersService.validateUser(usuario_id);
+        await this.validateUsersService.validateUser(usuario_id);
 
         const query = `
             SELECT 

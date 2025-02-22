@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { FilterUsersDTO, RegisterUserDTO, UserIdDTO } from './dto/users.dto';
+import { Body, Controller, Delete, Get, HttpException, InternalServerErrorException, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { UsersService } from './services/users.service';
+import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserResponseDTO } from './dto/users.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 
@@ -13,8 +13,17 @@ export class UsersController {
   ) { }
 
   @Get()
-  async getUsers(@Query() usersFilters: FilterUsersDTO) {
-    return await this.usersService.getUsers(usersFilters);
+  async getUsers(@Query() usersFilters: FilterUsersDTO): Promise<UserResponseDTO[]> {
+    try {
+      const users = await this.usersService.getUsers(usersFilters);
+
+      return users;
+    }
+    catch (error) {
+      if (error instanceof HttpException) { throw error };
+
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
 
@@ -23,13 +32,12 @@ export class UsersController {
     try {
       await this.usersService.registrarUsuario(userInfo);
 
-      return {
-        success: true,
-        message: 'Usuario registrado con éxito'
-      }
+      return { success: true, message: 'Usuario registrado con éxito' }
     }
     catch (error) {
-      throw error
+      if (error instanceof HttpException) { throw error };
+
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -38,9 +46,13 @@ export class UsersController {
   async deleteUser(@Query() user: UserIdDTO) {
     try {
       await this.usersService.deleteUser(user);
+      
       return { success: true, message: 'Usuario eliminado con éxito' };
-    } catch (error) {
-      throw error
+    } 
+    catch (error) {
+      if (error instanceof HttpException) { throw error };
+
+      throw new InternalServerErrorException(error.message);
     }
   }
 }
