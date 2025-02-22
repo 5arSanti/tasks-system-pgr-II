@@ -1,3 +1,43 @@
-:root {
-	
+:root {}
+
+.auth-container {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background-color: #6a0dad;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4a0080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #38006b;
+}
+
+.switch-button {
+    background-color: #6a0dad;
+}
+
+.error {
+    color: yellow;
+    font-size: 12px;
 }

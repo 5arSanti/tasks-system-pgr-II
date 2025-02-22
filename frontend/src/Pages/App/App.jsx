@@ -9,8 +9,9 @@ const App = () => {
     return (
         <AppProvider>
             <HashRouter>
-
-                <AppRoutes />
+                <div className="container">
+                    <AppRoutes />
+                </div>
             </HashRouter>
         </AppProvider>
     );
