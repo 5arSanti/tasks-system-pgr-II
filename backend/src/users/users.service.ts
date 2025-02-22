@@ -11,6 +11,16 @@ export class UsersService {
         @Inject('DATA_SOURCE') private readonly dataSource: DataSource,
     ) { }
 
+    async validateUser(user_id: number) {
+        const query = `SELECT * FROM usuarios WHERE id = ?`;
+
+        const user = await this.dataSource.query(query, [user_id]);
+
+        if (user.length === 0) throw new NotFoundException('Usuario no encontrado');
+
+        return user[0];
+    }
+
     async registrarUsuario(userInfo: RegisterUserDTO) {
         const { id, nombre, apellido, correo, contrasena, rol_id } = userInfo;
 

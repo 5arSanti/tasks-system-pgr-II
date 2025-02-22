@@ -1,41 +1,36 @@
-import { Controller, Post, Body, Put, Param, Delete, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, Delete, UseGuards, Get, InternalServerErrorException } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 import { TasksService } from './tasks.service';
-import { AssignTaskDto, CreateTaskDto, UpdateTaskDto } from './dto/tasks.dto';
+import { CreateTaskDto, UpdateTaskDto, UserTaskDto } from './dto/tasks.dto';
 
 @UseGuards(JwtAuthGuard, TeacherRoleGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.tasksService.findOne(id);
+  @Get(':task_id')
+  async findOne(@Param('task_id') task_id: number) {
+    return await this.tasksService.findOne(task_id);
   }
 
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  async findAll() {
+    return await this.tasksService.findAll();
   }
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  async create(@Body() createTaskDto: CreateTaskDto) {
+    return await this.tasksService.create(createTaskDto);
   }
 
-  @Put(':id')
-  update(@Param('id') id: number, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(id, updateTaskDto);
+  @Put(':task_id')
+  async update(@Param('task_id') task_id: number, @Body() updateTaskDto: UpdateTaskDto) {
+    return await this.tasksService.update(task_id, updateTaskDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.tasksService.remove(id);
-  }
-
-  @Post('assign')
-  assignTask(@Body() assignTaskDto: AssignTaskDto) {
-    return this.tasksService.assignTask(assignTaskDto);
+  async remove(@Param('id') id: number) {
+    return await this.tasksService.remove(id);
   }
 }

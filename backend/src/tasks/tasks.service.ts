@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { AssignTaskDto, CreateTaskDto, UpdateTaskDto } from './dto/tasks.dto';
+import { CreateTaskDto, UpdateTaskDto, UserTaskDto } from './dto/tasks.dto';
 import { DataSource } from 'typeorm';
 
 @Injectable()
@@ -7,6 +7,16 @@ export class TasksService {
     constructor(
         @Inject('DATA_SOURCE') private readonly dataSource: DataSource
     ) { }
+
+    async validateTask(task_id: number) {
+        const query = `SELECT * FROM tareas WHERE id = ?`;
+
+        const task = await this.dataSource.query(query, [task_id]);
+
+        if (task.length === 0) throw new NotFoundException('Tarea no encontrada');
+
+        return task[0];
+    }
 
     async findOne(id: number) {
         const query = `SELECT * FROM tareas WHERE id = ?`;
@@ -61,21 +71,5 @@ export class TasksService {
         if (result.affectedRows === 0) throw new NotFoundException('Tarea no encontrada');
 
         return { message: 'Tarea eliminada correctamente' };
-    }
-
-    async assignTask(assignTaskDto: AssignTaskDto) {
-        const { tarea_id, usuario_id } = assignTaskDto;
-
-        const checkQuery = `SELECT * FROM tareas WHERE id = ?`;
-        const tarea = await this.dataSource.query(checkQuery, [tarea_id]);
-
-        if (tarea.length === 0) throw new NotFoundException('Tarea no encontrada');
-
-        const query = `
-            INSERT INTO estados_tareas (tarea_id, usuario_id, estado)
-            VALUES (?, ?, 'pendiente')
-        `;
-
-        await this.dataSource.query(query, [tarea_id, usuario_id]);
     }
 }

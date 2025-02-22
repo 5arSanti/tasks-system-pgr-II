@@ -56,5 +56,6 @@ export class UserIdDTO {
     @IsNumber()
     @IsPositive()
     @MinLength(1)
+    @MaxLength(11)
     id: number;
 }
