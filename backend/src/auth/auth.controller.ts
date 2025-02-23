@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDTO, TokenResponseDTO } from './dto/auth.dto';
 
@@ -9,16 +9,12 @@ export class AuthController {
   @Post('login')
   async login(@Body() body: LoginDTO): Promise<TokenResponseDTO> {
     try {
-
       const token = this.authService.login(body);
 
       return token;
     }
     catch (error) {
-      throw new HttpException({
-        status: HttpStatus.UNAUTHORIZED,
-        error: 'Unauthorized',
-      }, HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException("Unauthorized");
     }
   }
 }

@@ -1,43 +1,78 @@
-:root {}
+:root{
+    --navbar-color: #ffffff;
+    --footer-color: #f1f3f6;
+    
+    --main-body-color: #f8fafc;
+    --main-title-color: #252b42;
+    
+    --lines-color: #62d2a2;
+    --lines-color2: #62d2a2;
+    
+    --pallete-1: #62d2a2;
+    --pallete-2: #0084ff;
+    --pallete-3: #717171;
+    --pallete-4: #ffcc00;
+    --pallete-5: #e3e7ef;
+    --pallete-6: #c3c8d4;
+    
 
-.auth-container {
-    width: 300px;
-    margin: auto;
-    padding: 20px;
-    background-color: #6a0dad;
-    color: white;
-    border-radius: 10px;
-    text-align: center;
+    --text-color: #717171;
+    --all-info-container-color: #E6EFFD;
+    
+    --black-to-white-color: #000000;
+    --white-to-black-color: #FFFFFF;
+
+    --icon-colors: #DCDCDC;
+
+    --navbar-height: 80px;
+
+    --white: rgba(255,255,255,1);
+    --white-025: rgba(255,255,255,.25);
+    --white-05: rgba(255,255,255,.5);
+    --white-075: rgba(255,255,255,.75);
+    --white-095: rgba(255,255,255,0.95);
+
+    --black: rgba(0,0,0,1);
+    --black-025: rgba(0,0,0,0.25);
+    --black-05: rgba(0,0,0,0.5);
+
+    --green-bg: #e6ffe2;
+    --red-bg: #ffe5e3;
 }
 
-input {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+html {
+    scroll-behavior: smooth;
 }
 
+p, span, div, h2, h1 {
+    margin: 0 !important;
+}
+
+body {
+    margin: 0;
+    font-family: "Roboto" !important;
+    font-weight: 100;
+    font-style: normal;
+
+    background: var(--main-body-color) !important;
+
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none !important;
+    color: transparent;
+}
 button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #4a0080;
-    color: white;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-button:hover {
-    background-color: #38006b;
-}
-
-.switch-button {
-    background-color: #6a0dad;
-}
-
-.error {
-    color: yellow;
-    font-size: 12px;
+svg {
+    width: 30px;
+    height: 30px;
 }

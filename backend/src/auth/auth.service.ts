@@ -13,6 +13,7 @@ export class AuthService {
 
   async validateUser(body: LoginDTO) {
     const { correo, contrasena } = body;
+
     const usuario = await this.dataSource.query(
       'SELECT * FROM usuarios WHERE correo = ? LIMIT 1',
       [correo],
@@ -35,6 +36,8 @@ export class AuthService {
 
     const payload = {
       id: user.id,
+      nombre: user.nombre,
+      apellido: user.apellido,
       correo: user.correo,
       rol_id: user.rol_id
     };

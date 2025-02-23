@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+*.properties.env
+*.env
+
+app.properties.ini
+*.ini

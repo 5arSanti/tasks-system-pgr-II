@@ -45,7 +45,7 @@ export class UsersService {
 
         if (conditions.length === 0) {
             conditions.push('rol_id = ?');
-            values.push(1);
+            values.push(2);
         }
 
         const query = `${baseQuery} WHERE ${conditions.join(' OR ')} `;
@@ -54,7 +54,9 @@ export class UsersService {
     }
 
     async registrarUsuario(userInfo: RegisterUserDTO) {
-        const { id, nombre, apellido, correo, contrasena, rol_id } = userInfo;
+        const { id, nombre, apellido, correo, contrasena, rol_id, confirmar_contraseña } = userInfo;
+
+        if (!(contrasena === confirmar_contraseña)) throw new BadRequestException('Las contraseñas no coinciden');
 
         const usuarioExistente = await this.dataSource.query(
             'SELECT * FROM usuarios WHERE correo = ? OR id = ? LIMIT 1',
@@ -70,7 +72,7 @@ export class UsersService {
 
         await this.dataSource.query(
             `INSERT INTO usuarios (id, nombre, apellido, correo, contrasena, rol_id) VALUES (?, ?, ?, ?, ?, ?)`,
-            [id, nombre, apellido, correo, hashedPassword, rol_id],
+            [id, nombre, apellido, correo, hashedPassword, rol_id ? rol_id : 2],
         );
     }
 

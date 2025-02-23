@@ -1,9 +1,14 @@
-import { Title } from "../../Components/Title";
+import { AuthWrapper } from "../../components/AuthWrapper";
+import { Title } from "../../components/Title";
+
+import "./styles.css"
 
 const Home = () => {
-    return(
-        <Title>Home</Title>
+    return (
+        <AuthWrapper>
+            <Title>Template project</Title>
+        </AuthWrapper>
     );
 }
 
-export { Home }
+export { Home };

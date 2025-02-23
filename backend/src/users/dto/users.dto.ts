@@ -40,10 +40,10 @@ export class UserDTO extends PartialType(UserIdDTO) {
     @IsEmail()
     correo: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     @IsPositive()
-    rol_id: number;
+    rol_id?: number;
 }
 
 
@@ -51,6 +51,10 @@ export class RegisterUserDTO extends PartialType(UserDTO) {
     @IsNotEmpty()
     @IsStrongPassword()
     contrasena: string;
+
+    @IsNotEmpty()
+    @IsStrongPassword()
+    confirmar_contraseña: string;
 }
 
 export class FilterUsersDTO {

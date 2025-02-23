@@ -9,7 +9,6 @@ export class LoginDTO implements LoginInterface {
 
     @IsNotEmpty()
     @IsString()
-    @IsStrongPassword()
     contrasena: string;
 }
 

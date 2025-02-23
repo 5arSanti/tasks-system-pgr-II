@@ -4,7 +4,6 @@ import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserResponseDTO } from './d
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 
-@UseGuards(JwtAuthGuard, TeacherRoleGuard)
 @Controller('users')
 export class UsersController {
 
@@ -12,6 +11,7 @@ export class UsersController {
     private usersService: UsersService
   ) { }
 
+  @UseGuards(JwtAuthGuard, TeacherRoleGuard)
   @Get()
   async getUsers(@Query() usersFilters: FilterUsersDTO): Promise<UserResponseDTO[]> {
     try {
@@ -41,14 +41,14 @@ export class UsersController {
     }
   }
 
-
+  @UseGuards(JwtAuthGuard, TeacherRoleGuard)
   @Delete()
   async deleteUser(@Query() user: UserIdDTO) {
     try {
       await this.usersService.deleteUser(user);
-      
+
       return { success: true, message: 'Usuario eliminado con éxito' };
-    } 
+    }
     catch (error) {
       if (error instanceof HttpException) { throw error };
 
