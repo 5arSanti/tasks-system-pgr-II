@@ -18,8 +18,12 @@ import { AppRoutes } from "../Routes";
 
 // Utils
 import { scrollToValue } from "../../utils/scrollToValue";
+import { GridContainer } from "../components/GridContainer";
+import { WrapperContainer2 } from "../components/WrapperContainers";
+import { SubTitle } from "../components/SubTitle";
+import { SidebarsOptions } from "../components/SideBarsOptions";
 
-const Wrapper = ({children}) => {
+const Wrapper = ({ children }) => {
     const location = useLocation();
     React.useLayoutEffect(() => {
         scrollToValue();
@@ -32,12 +36,19 @@ const App = () => {
     return (
         <AppProvider>
             <HashRouter>
-                <Wrapper>                    
-                    <LoadingCard/>
+                <Wrapper>
+                    <LoadingCard />
 
-                    <AppRoutes/>
+                    <GridContainer className="grid-25-175">
+                        <SidebarsOptions/>
 
-                    <ToastContainer/>
+                        <WrapperContainer2 flexDirection="column">
+                            <AppRoutes />
+                        </WrapperContainer2>
+                    </GridContainer>
+
+
+                    <ToastContainer />
                 </Wrapper>
             </HashRouter>
         </AppProvider>

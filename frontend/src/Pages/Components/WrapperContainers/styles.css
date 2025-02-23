@@ -31,8 +31,6 @@
     box-sizing: border-box;
 
     border: 1px solid var(--pallete-2);
-    
-    border-radius: 20px;
 
     display: flex;
     align-items: center;
