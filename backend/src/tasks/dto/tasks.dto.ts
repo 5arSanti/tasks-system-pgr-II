@@ -23,8 +23,6 @@ export class CreateTaskDto {
     @IsNotEmpty()
     @IsNumber()
     @IsPositive()
-    @MinLength(1)
-    @MaxLength(11)
     usuario_id: number;
 }
 
@@ -35,8 +33,6 @@ export class UserTaskDto {
     @IsNotEmpty()
     @IsNumber()
     @IsPositive()
-    @MinLength(1)
-    @MaxLength(11)
     usuario_id: number;
     
     @IsNotEmpty()
