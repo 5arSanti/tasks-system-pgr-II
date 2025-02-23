@@ -1,19 +1,11 @@
-import axios from "axios";
-import { api } from "../api";
+import { clearToken } from "../clearToken";
 import { handleNotifications } from "../handleNotifications";
 import { reloadLocation } from "../realoadLocation";
 
 const handleLogout = () => {
-    axios.get(`${api}/auth/logout`)
-        .then(res => {
-            const { data } = res;
-
-            if(data.Status == "Success") {
-                handleNotifications("info", "Sesión Cerrada Correctamente")
-                reloadLocation()
-            }
-        })
-        .catch(err => { handleNotifications("error", err) })
+    clearToken();
+    handleNotifications("success", "Sesión cerrada correctamente");
+    reloadLocation()
 }
 
 export { handleLogout };

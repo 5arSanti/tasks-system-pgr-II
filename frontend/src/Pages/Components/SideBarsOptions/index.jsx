@@ -1,3 +1,4 @@
+import { handleLogout } from "../../../utils/handleData/handleLogout";
 import { IsAdminWrapper } from "../AuthWrapper/IsAdminWrapper";
 import { IsAuthWrapper } from "../AuthWrapper/IsAuthWrapper";
 import { LogInfoCard } from "../LogInfoCard"
@@ -45,6 +46,7 @@ const SidebarsOptions = () => {
                         icon={<MdLogout />}
                         title={"Cerrar sesion"}
                         text={"¿Te vas?"}
+                        onClick={handleLogout}
                     />
                 </IsAuthWrapper>
             </WrapperContainer2>
