@@ -1,6 +1,6 @@
 .wrapper-container1 {
     width: 100%;
-    background-color: var(--pallete-2);
+    background-color: transparent;
     box-sizing: border-box;
 
     display: flex;

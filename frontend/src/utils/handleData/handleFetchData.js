@@ -1,15 +1,19 @@
 import { api } from "../api";
 
-const headers = {
-    'Content-Type': 'application/json'
-};
+const access_token = localStorage.getItem('access_token');
+
 
 
 const fetchData = async (endpoint) => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token ? access_token : ""}`
+    };
+
     const response = await fetch(`${api}/${endpoint}`, {
 		mode: "cors",
 		method: "GET",
-        credentials: "include",
+        // credentials: "include",
         headers: headers
 	});
     const data = await response.json();

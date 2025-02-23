@@ -14,7 +14,7 @@ const WrapperContainer1 = ({
     width="100%"
 }) => {
 return(
-    <div className={`wrapper-container1 ${className}`} style={{
+    <div className={`wrapper-container1 border-left-style shadow-style ${className}`} style={{
         flexDirection: flexDirection,
         padding: padding,
         paddingTop: paddingVertical || padding,

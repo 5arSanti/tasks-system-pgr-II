@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { handleLogout } from "../../../utils/handleData/handleLogout";
 import { IsAdminWrapper } from "../AuthWrapper/IsAdminWrapper";
 import { IsAuthWrapper } from "../AuthWrapper/IsAuthWrapper";
@@ -11,7 +12,8 @@ import { FaBookOpen } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 
 const SidebarsOptions = () => {
-    
+    const navigate = useNavigate()
+
     return (
         <WrapperContainer2 flexDirection="column" padding={0}>
             <WrapperContainer2 padding={10} justifyContent="center" alignItems="center" height="auto">
@@ -24,6 +26,7 @@ const SidebarsOptions = () => {
                         icon={<FaTasks />}
                         title={"Tareas"}
                         text={"Gestion de tareas"}
+                        onClick={() => navigate("/tasks")}
                     />
                 </IsAuthWrapper>
                 
@@ -32,12 +35,14 @@ const SidebarsOptions = () => {
                         icon={<FaUsers />}
                         title={"Usuarios"}
                         text={"Gestion de usuarios"}
+                        onClick={() => navigate("/users")}
                     />
 
                     <LogInfoCard
                         icon={<FaBookOpen />}
                         title={"Asignaturas"}
                         text={"Gestion de asignaturas"}
+                        onClick={() => navigate("/subjects")}
                     />
                 </IsAdminWrapper>
 

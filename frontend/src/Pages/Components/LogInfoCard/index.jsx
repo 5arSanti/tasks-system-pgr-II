@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
 import { FadeWrapper } from "../FadeWrapper";
 import { SpanCard, TextCard } from "../TextComponents";
 import { WrapperContainer3 } from "../WrapperContainers";
