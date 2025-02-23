@@ -1,8 +1,8 @@
 import React from "react";
-import { AuthWrapper } from "../../components/AuthWrapper";
-import { SubTitle } from "../../components/SubTitle";
-import { WrapperContainer2 } from "../../components/WrapperContainers";
-import { TaskCard } from "../../components/ScreenTasks/TaskCard";
+import { AuthWrapper } from "../../Components/AuthWrapper";
+import { SubTitle } from "../../Components/SubTitle";
+import { WrapperContainer2 } from "../../Components/WrapperContainers";
+import { TaskCard } from "../../Components/ScreenTasks/TaskCard";
 import { AppContext } from "../../../Context";
 
 const TasksScreen = () => {

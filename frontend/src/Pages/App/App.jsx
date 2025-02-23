@@ -13,14 +13,14 @@ import { AppContext, AppProvider } from "../../Context";
 
 // Components
 import { ToastContainer } from "react-toastify";
-import { LoadingCard } from "../components/LoadingCard";
+import { LoadingCard } from "../Components/LoadingCard";
 import { AppRoutes } from "../Routes";
 
 // Utils
 import { scrollToValue } from "../../utils/scrollToValue";
-import { GridContainer } from "../components/GridContainer";
-import { WrapperContainer2 } from "../components/WrapperContainers";
-import { SidebarsOptions } from "../components/SideBarsOptions";
+import { GridContainer } from "../Components/GridContainer";
+import { WrapperContainer2 } from "../Components/WrapperContainers";
+import { SidebarsOptions } from "../Components/SideBarsOptions";
 
 const Wrapper = ({ children }) => {
     const location = useLocation();

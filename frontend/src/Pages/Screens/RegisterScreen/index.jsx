@@ -3,15 +3,15 @@ import React from "react";
 import { AppContext } from "../../../Context";
 
 import { handleInputChange } from "../../../utils/handleInputChange";
-import { InputCard } from "../../components/InputsCards";
+import { InputCard } from "../../Components/InputsCards";
 import { handlePostData } from "../../../utils/handleData/handlePostData";
-import { WrapperContainer2 } from "../../components/WrapperContainers";
-import { FadeWrapper } from "../../components/FadeWrapper";
-import { SectionTitle } from "../../components/SectionWrapper/SectionTitle";
-import { TextCard } from "../../components/TextComponents";
-import { GridContainer } from "../../components/GridContainer";
+import { WrapperContainer2 } from "../../Components/WrapperContainers";
+import { FadeWrapper } from "../../Components/FadeWrapper";
+import { SectionTitle } from "../../Components/SectionWrapper/SectionTitle";
+import { TextCard } from "../../Components/TextComponents";
+import { GridContainer } from "../../Components/GridContainer";
 import { useNavigate } from "react-router-dom";
-import { AuthWrapper } from "../../components/AuthWrapper";
+import { AuthWrapper } from "../../Components/AuthWrapper";
 
 const RegisterScreen = () => {
     const { setLoading } = React.useContext(AppContext);
