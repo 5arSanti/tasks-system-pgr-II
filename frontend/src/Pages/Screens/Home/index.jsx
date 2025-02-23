@@ -1,5 +1,5 @@
-import { AuthWrapper } from "../../components/AuthWrapper";
-import { Title } from "../../components/Title";
+import { AuthWrapper } from "../../Components/AuthWrapper";
+import { Title } from "../../Components/Title";
 
 import "./styles.css"
 

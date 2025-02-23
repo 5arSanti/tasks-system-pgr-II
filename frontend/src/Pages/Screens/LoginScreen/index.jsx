@@ -5,17 +5,17 @@ import { AppContext } from "../../../Context";
 import { useNavigate } from "react-router-dom";
 
 import { scrollToValue } from "../../../utils/scrollToValue";
-import { InputCard } from "../../components/InputsCards";
+import { InputCard } from "../../Components/InputsCards";
 import { handleInputChange } from "../../../utils/handleInputChange";
 
 import "./styles.css";
-import { WrapperContainer2 } from "../../components/WrapperContainers";
-import { SectionTitle } from "../../components/SectionWrapper/SectionTitle";
-import { TextCard } from "../../components/TextComponents";
-import { FadeWrapper } from "../../components/FadeWrapper";
-import { ButtonCard } from "../../components/ButtonCard";
+import { WrapperContainer2 } from "../../Components/WrapperContainers";
+import { SectionTitle } from "../../Components/SectionWrapper/SectionTitle";
+import { TextCard } from "../../Components/TextComponents";
+import { FadeWrapper } from "../../Components/FadeWrapper";
+import { ButtonCard } from "../../Components/ButtonCard";
 import { handlePostData } from "../../../utils/handleData/handlePostData";
-import { AuthWrapper } from "../../components/AuthWrapper";
+import { AuthWrapper } from "../../Components/AuthWrapper";
 
 const LoginScreen = () => {
     const { setLoading } = React.useContext(AppContext);
