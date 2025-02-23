@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
-import { LoginInterface } from "../interfaces/auth.interface";
+import { LoginInterface, TokenResponseInterface } from "../interfaces/auth.interface";
 
 export class LoginDTO implements LoginInterface {
     @IsNotEmpty()
@@ -11,4 +11,8 @@ export class LoginDTO implements LoginInterface {
     @IsString()
     @IsStrongPassword()
     contrasena: string;
+}
+
+export class TokenResponseDTO implements TokenResponseInterface {
+    access_token: string;
 }

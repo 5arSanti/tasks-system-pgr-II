@@ -4,7 +4,7 @@ import { CanActivate, ExecutionContext, Injectable, ForbiddenException } from '@
 export class TeacherRoleGuard implements CanActivate {
     canActivate(context: ExecutionContext): boolean {
         const request = context.switchToHttp().getRequest();
-        const user = request.user;
+        const { user } = request;
 
         if (!user) {
             throw new ForbiddenException('No se encontró información del usuario');

@@ -2,7 +2,7 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { LoginDTO } from './dto/auth.dto';
+import { LoginDTO, TokenResponseDTO } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,17 +29,17 @@ export class AuthService {
   }
 
 
-  async login(body: LoginDTO) {
+  async login(body: LoginDTO): Promise<TokenResponseDTO> {
 
     const user = await this.validateUser(body);
 
-    const payload = { 
-      id: user.id, 
-      correo: user.correo, 
+    const payload = {
+      id: user.id,
+      correo: user.correo,
       rol_id: user.rol_id
     };
-    const token = this.jwtService.sign({user: payload});
-  
+    const token = this.jwtService.sign({ user: payload });
+
     return { access_token: token };
   }
 }
