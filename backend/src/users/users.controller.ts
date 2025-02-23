@@ -28,7 +28,7 @@ export class UsersController {
 
 
   @Post()
-  async registeruser(@Body() userInfo: RegisterUserDTO) {
+  async registerUser(@Body() userInfo: RegisterUserDTO) {
     try {
       await this.usersService.registrarUsuario(userInfo);
 

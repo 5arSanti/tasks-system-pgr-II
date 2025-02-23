@@ -2,7 +2,7 @@ import { Controller, Post, Body, Put, Param, Delete, UseGuards, Get, InternalSer
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 import { TasksService } from './services/tasks.service';
-import { CreateTaskDto, UpdateTaskDto, UserTaskDto } from './dto/tasks.dto';
+import { CreateTaskDto, UpdateTaskDto } from './dto/tasks.dto';
 
 @UseGuards(JwtAuthGuard, TeacherRoleGuard)
 @Controller('tasks')

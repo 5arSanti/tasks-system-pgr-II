@@ -1,12 +1,27 @@
 import { PartialType } from "@nestjs/mapped-types";
-import { IsBoolean, IsBooleanString, IsEmail, IsIn, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, IsStrongPassword, MaxLength, MinLength } from "class-validator";
+import { Transform } from "class-transformer";
+import {
+    IsBoolean,
+    IsBooleanString,
+    IsEmail,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsPositive,
+    IsString,
+    IsStrongPassword,
+    Max,
+    MaxLength,
+    Min,
+    MinLength
+} from "class-validator";
 
 export class UserIdDTO {
     @IsNotEmpty()
     @IsNumber()
     @IsPositive()
-    @MinLength(1)
-    @MaxLength(11)
+    @Min(1000000)
+    @Max(99999999999)
     id: number;
 }
 
@@ -32,7 +47,7 @@ export class UserDTO extends PartialType(UserIdDTO) {
 }
 
 
-export class RegisterUserDTO extends PartialType(UserDTO) {    
+export class RegisterUserDTO extends PartialType(UserDTO) {
     @IsNotEmpty()
     @IsStrongPassword()
     contrasena: string;
@@ -40,15 +55,29 @@ export class RegisterUserDTO extends PartialType(UserDTO) {
 
 export class FilterUsersDTO {
     @IsOptional()
+    @Transform(({ value }) => {
+        if (value === 'true' || value === true) return true;
+        if (value === 'false' || value === false) return false;
+        return false;
+    })
     @IsBoolean()
-    @IsBooleanString()
     all_users?: boolean;
 
     @IsOptional()
+    @Transform(({ value }) => {
+        if (value === 'true' || value === true) return true;
+        if (value === 'false' || value === false) return false;
+        return false;
+    })
     @IsBoolean()
     students?: boolean;
 
     @IsOptional()
+    @Transform(({ value }) => {
+        if (value === 'true' || value === true) return true;
+        if (value === 'false' || value === false) return false;
+        return false;
+    })
     @IsBoolean()
     teachers?: boolean;
 }
