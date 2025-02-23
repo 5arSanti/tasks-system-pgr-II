@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //Context
-import { AppProvider } from "../../Context";
+import { AppContext, AppProvider } from "../../Context";
 
 // Components
 import { ToastContainer } from "react-toastify";
@@ -20,7 +20,6 @@ import { AppRoutes } from "../Routes";
 import { scrollToValue } from "../../utils/scrollToValue";
 import { GridContainer } from "../components/GridContainer";
 import { WrapperContainer2 } from "../components/WrapperContainers";
-import { SubTitle } from "../components/SubTitle";
 import { SidebarsOptions } from "../components/SideBarsOptions";
 
 const Wrapper = ({ children }) => {
@@ -32,6 +31,20 @@ const Wrapper = ({ children }) => {
     return children;
 }
 
+const MainWrapper = () => {
+    const { auth } = React.useContext(AppContext);
+
+    return (
+        <GridContainer className={`${auth ? "grid-025-175" : "grid-1"}`}>
+            {auth && <SidebarsOptions />}
+
+            <WrapperContainer2 flexDirection="column">
+                <AppRoutes />
+            </WrapperContainer2>
+        </GridContainer>
+    );
+}
+
 const App = () => {
     return (
         <AppProvider>
@@ -39,14 +52,7 @@ const App = () => {
                 <Wrapper>
                     <LoadingCard />
 
-                    <GridContainer className="grid-25-175">
-                        <SidebarsOptions/>
-
-                        <WrapperContainer2 flexDirection="column">
-                            <AppRoutes />
-                        </WrapperContainer2>
-                    </GridContainer>
-
+                    <MainWrapper />
 
                     <ToastContainer />
                 </Wrapper>
@@ -54,6 +60,8 @@ const App = () => {
         </AppProvider>
     );
 }
+
+
 
 export default App;
 

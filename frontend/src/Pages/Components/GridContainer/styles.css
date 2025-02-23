@@ -9,7 +9,7 @@
     max-width: 100%;
 }
 
-.grid-25-175 {
+.grid-025-175 {
     grid-template-columns: 0.25fr 1.75fr;
 }
 .grid-05-15 {
