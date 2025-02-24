@@ -14,8 +14,21 @@ export class AuthService {
   async validateUser(body: LoginDTO) {
     const { correo, contrasena } = body;
 
-    const usuario = await this.dataSource.query(
-      'SELECT * FROM usuarios WHERE correo = ? LIMIT 1',
+    const usuario = await this.dataSource.query(`
+        SELECT 
+          u.id,
+          u.nombre,
+          u.apellido,
+          u.correo,
+          u.contrasena,
+          u.rol_id,
+          r.nombre AS rol
+
+        FROM usuarios u 
+          JOIN roles r ON u.rol_id = r.id
+
+        WHERE correo = ? LIMIT 1
+      `,
       [correo],
     );
 
@@ -39,7 +52,8 @@ export class AuthService {
       nombre: user.nombre,
       apellido: user.apellido,
       correo: user.correo,
-      rol_id: user.rol_id
+      rol_id: user.rol_id,
+      rol: user.rol,
     };
     const token = this.jwtService.sign({ user: payload });
 

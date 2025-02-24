@@ -12,6 +12,7 @@ import { TextCard } from "../../Components/TextComponents";
 import { GridContainer } from "../../Components/GridContainer";
 import { useNavigate } from "react-router-dom";
 import { AuthWrapper } from "../../Components/AuthWrapper";
+import { ButtonCard } from "../../Components/ButtonCard";
 
 const RegisterScreen = () => {
     const { setLoading } = React.useContext(AppContext);
@@ -109,6 +110,10 @@ const RegisterScreen = () => {
                         <button type="submit">Crear cuenta</button>
                     </form>
 
+                    <WrapperContainer2 flexDirection="column" gap={20} padding={"75px 0 0 0"}>
+                        <TextCard textAlign="center">Ya tiene cuenta?</TextCard>
+                        <ButtonCard onClick={() => navigate("/login")}>Iniciar Sesión</ButtonCard>
+                    </WrapperContainer2>
                 </WrapperContainer2>
             </WrapperContainer2>
         </FadeWrapper>

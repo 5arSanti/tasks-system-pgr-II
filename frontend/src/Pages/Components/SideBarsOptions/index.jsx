@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useNavigate } from "react-router-dom";
 import { handleLogout } from "../../../utils/handleData/handleLogout";
 import { IsAdminWrapper } from "../AuthWrapper/IsAdminWrapper";
@@ -11,7 +13,11 @@ import { FaTasks } from "react-icons/fa";
 import { FaBookOpen } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 
+import { FaHome } from "react-icons/fa";
+import { AppContext } from "../../../Context";
+
 const SidebarsOptions = () => {
+    const { user } = React.useContext(AppContext)
     const navigate = useNavigate()
 
     return (
@@ -23,13 +29,19 @@ const SidebarsOptions = () => {
             <WrapperContainer2 flexDirection="column" padding={0} gap={0}>
                 <IsAuthWrapper>
                     <LogInfoCard
+                        icon={<FaHome />}
+                        title={"Inicio"}
+                        text={"Pagina de inicio"}
+                        onClick={() => navigate("/home")}
+                    />
+                    <LogInfoCard
                         icon={<FaTasks />}
                         title={"Tareas"}
                         text={"Gestion de tareas"}
                         onClick={() => navigate("/tasks")}
                     />
                 </IsAuthWrapper>
-                
+
                 <IsAdminWrapper>
                     <LogInfoCard
                         icon={<FaUsers />}
@@ -47,6 +59,12 @@ const SidebarsOptions = () => {
                 </IsAdminWrapper>
 
                 <IsAuthWrapper>
+                    <LogInfoCard
+                        title={`${user.nombre} ${user.apellido}`}
+                        text={user.rol}
+                        onClick={() => navigate("/Home")}
+                    />
+
                     <LogInfoCard
                         icon={<MdLogout />}
                         title={"Cerrar sesion"}
