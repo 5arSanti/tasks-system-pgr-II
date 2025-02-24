@@ -9,11 +9,12 @@ import { IoSearch } from "react-icons/io5";
 
 import "./styles.css";
 
-const DropCard = ({title, array=[], onClick, value, searchBox=true, seeAllOption=true}) => {
-
+const DropCard = ({ title, array = [], onClick, value, searchBox = true, seeAllOption = true }) => {
     const [searchValue, setSearchValue] = React.useState("");
 
-    const filteredArray = searchValue.trim() === '' ? array : array.filter(item => item?.toLocaleLowerCase().includes(searchValue));
+    const filteredArray = (searchValue.trim().toLocaleLowerCase() === '') ? 
+        array : 
+        array.filter(item => item.name?.toLocaleLowerCase().includes(searchValue));
 
     return (
         <WrapperContainer2 padding={0} flexDirection='column' justifyContent='start' alignItems='start' gap={10}>
@@ -21,10 +22,10 @@ const DropCard = ({title, array=[], onClick, value, searchBox=true, seeAllOption
 
             <Dropdown className="dropdown-card-container">
                 <Dropdown.Toggle id="dropdown-card-basic" className='dropdown-card-button'>
-                    {(value == "" || !value) && "Todo" || 
-                    <>
-                        {value}
-                    </>
+                    {(value == "" || !value) && "Seleccionar" ||
+                        <>
+                            {array.find(item => item.id === value)?.name}
+                        </>
                     }
                 </Dropdown.Toggle>
 
@@ -34,15 +35,15 @@ const DropCard = ({title, array=[], onClick, value, searchBox=true, seeAllOption
                             id={"search-icon-input"}
                             label={"Buscar"}
                             placeholder='Buscar'
-                            onChange={(event) => {setSearchValue(event.toLocaleLowerCase())}}
+                            onChange={(event) => { setSearchValue(event.toLocaleLowerCase()) }}
                             defaultValue={searchValue}
                             className='dropdown-card-search-input'
                             required={false}
                             haveLabel={false}
-                            icon={<IoSearch/>}
-                        />  
+                            icon={<IoSearch />}
+                        />
                     }
-                    
+
                     <ScrollableWrapper maxHeight={400}>
                         {seeAllOption &&
                             <Dropdown.Item onClick={() => onClick("")}>
@@ -51,19 +52,15 @@ const DropCard = ({title, array=[], onClick, value, searchBox=true, seeAllOption
                         }
                         {filteredArray?.map((item, index) => (
                             <Dropdown.Item key={index} onClick={() => {
-                                    onClick(item)
-                                    setSearchValue("");
-                                }}>
-                                    <TextCard>
-                                        {item == 1 && "Si" || 
-                                        item == 0 && "No" || 
-                                        item}
-                                    </TextCard>
+                                onClick(item.id)
+                                setSearchValue("");
+                            }}>
+                                <TextCard>{item.name}</TextCard>
                             </Dropdown.Item>
                         ))}
                     </ScrollableWrapper>
                 </Dropdown.Menu>
-            </Dropdown>  
+            </Dropdown>
         </WrapperContainer2>
 
     )

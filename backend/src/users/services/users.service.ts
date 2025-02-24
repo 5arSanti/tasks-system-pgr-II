@@ -2,7 +2,7 @@ import { BadRequestException, Inject, Injectable, NotFoundException } from '@nes
 import { JwtService } from '@nestjs/jwt';
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { FilterUsersDTO, RegisterUserDTO, UserDTO, UserIdDTO, UserResponseDTO } from '../dto/users.dto';
+import { FilterUsersDTO, RegisterUserDTO, UserDTO, UserIdDTO, UserResponseDTO, UsersNoDetailsResponseDTO } from '../dto/users.dto';
 
 
 @Injectable()
@@ -11,19 +11,25 @@ export class UsersService {
         @Inject('DATA_SOURCE') private readonly dataSource: DataSource,
     ) { }
 
-    async getUsers(usersFilters: FilterUsersDTO): Promise<UserResponseDTO[]> {
-        const baseQuery = `
-            SELECT 
-                u.id AS id,
-                u.nombre AS name,
+    async getUsers(usersFilters: FilterUsersDTO): Promise<UserResponseDTO[] | UsersNoDetailsResponseDTO[]> {
+        let selectFields = `
+            u.id AS id,
+            u.nombre AS name
+        `;
+
+        if (!usersFilters.no_details) {
+            selectFields += `,
                 u.apellido AS last_name,
                 u.correo AS email,
-
                 r.id AS role_id,
                 r.nombre AS role_name
+            `;
+        }
 
+        const baseQuery = `
+            SELECT ${selectFields}
             FROM usuarios u 
-                JOIN roles r ON u.rol_id = r.id
+            JOIN roles r ON u.rol_id = r.id
         `;
 
         if (usersFilters.all_users) {
@@ -41,6 +47,10 @@ export class UsersService {
         if (usersFilters.teachers) {
             conditions.push('rol_id = ?');
             values.push(1);
+        }
+
+        if (usersFilters.no_details) {
+
         }
 
         if (conditions.length === 0) {

@@ -5,6 +5,8 @@ import { WrapperContainer2 } from "../../Components/WrapperContainers";
 import { SubTitle } from "../../Components/SubTitle";
 import { TaskCard } from "../../Components/ScreenTasks/TaskCard";
 import { useParams } from "react-router-dom";
+import { EnrollUserForm } from "../../Components/ScreenTaskDetail/EnrollUserForm";
+import { IsAdminWrapper } from "../../Components/AuthWrapper/IsAdminWrapper";
 
 const TaskDetailsScreen = () => {
     const { task_id } = useParams();
@@ -26,6 +28,10 @@ const TaskDetailsScreen = () => {
                 <SubTitle>Detalles de la tarea</SubTitle>
 
                 <TaskCard item={task} details={false} />
+
+                <IsAdminWrapper>
+                    <EnrollUserForm task_id={task_id}/>
+                </IsAdminWrapper>
             </WrapperContainer2>
         </AuthWrapper>
     );

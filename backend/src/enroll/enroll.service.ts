@@ -12,6 +12,19 @@ export class EnrollService {
     private readonly validateTasksService: ValidateTasksService
   ) { }
 
+  async validateEnrolledTask(assignTaskDto: UserTaskDto) {
+    const { tarea_id, usuario_id } = assignTaskDto;
+
+    const query = `
+      SELECT * FROM estados_tareas
+      WHERE tarea_id = ? AND usuario_id = ?
+    `;
+
+    const [task] = await this.dataSource.query(query, [tarea_id, usuario_id]);
+
+    if (task) throw new BadRequestException('Este usuario ya tiene esta tarea asignada');
+  }
+
   async enrollTask(assignTaskDto: UserTaskDto) {
     const { tarea_id, usuario_id } = assignTaskDto;
 
@@ -20,6 +33,8 @@ export class EnrollService {
     const user = await this.validateUsersService.validateUser(usuario_id);
 
     if (user.rol_id !== 2) throw new BadRequestException('El usuario no es un estudiante');
+
+    await this.validateEnrolledTask(assignTaskDto);
 
     const query = `
       INSERT INTO estados_tareas (tarea_id, usuario_id, estado)

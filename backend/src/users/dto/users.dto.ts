@@ -84,6 +84,15 @@ export class FilterUsersDTO {
     })
     @IsBoolean()
     teachers?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => {
+        if (value === 'true' || value === true) return true;
+        if (value === 'false' || value === false) return false;
+        return false;
+    })
+    @IsBoolean()
+    no_details?: boolean;
 }
 
 export class UserResponseDTO extends PartialType(UserIdDTO) {
@@ -108,6 +117,12 @@ export class UserResponseDTO extends PartialType(UserIdDTO) {
     role_name: string;
 }
 
+export class UsersNoDetailsResponseDTO extends PartialType(UserIdDTO) {
+    @IsNotEmpty()
+    @IsString()
+    name: string;
+}
+
 export class UsersResponseDTO {
-    users: UserResponseDTO[];
+    users: UserResponseDTO[] | UsersNoDetailsResponseDTO[];
 }
