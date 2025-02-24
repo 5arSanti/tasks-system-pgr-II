@@ -40,83 +40,78 @@ const RegisterScreen = () => {
     }
 
     return (
+        <FadeWrapper>
+            <WrapperContainer2 padding={30} flexDirection="column" justifyContent="center" alignItems="center">
+                <SectionTitle title="Cree su cuenta" subTitle="Bienvenido" />
 
-        <AuthWrapper>
-        {/* <StyledSection height="auto"> */}
-                <FadeWrapper>
-                    <WrapperContainer2 padding={30} flexDirection="column" justifyContent="center" alignItems="center">
-                        <SectionTitle title="Cree su cuenta" subTitle="Bienvenido" />
+                <WrapperContainer2
+                    className="login-container"
+                    flexDirection="column"
+                    padding={"50px 75px"} gap={30}
+                    height="auto"
+                >
+                    <TextCard textAlign="center" fontSize={18}>
+                        Registrese en el sistema
+                    </TextCard>
 
-                        <WrapperContainer2
-                            className="login-container"
-                            flexDirection="column"
-                            padding={"50px 75px"} gap={30}
-                            height="auto"
-                        >
-                            <TextCard textAlign="center" fontSize={18}>
-                                Registrese en el sistema
-                            </TextCard>
+                    <form className="login-form-container" onSubmit={handleRegister}>
+                        <InputCard
+                            id={"user-id"}
+                            label={"Cedula:"}
+                            placeholder="Ingrese su numero de cédula"
+                            onChange={(event) => handleInputChange("id", event, setValues)}
+                            defaultValue={values?.id}
+                        />
 
-                            <form className="login-form-container" onSubmit={handleRegister}>
-                                <InputCard
-                                    id={"user-id"}
-                                    label={"Cedula:"}
-                                    placeholder="Ingrese su numero de cédula"
-                                    onChange={(event) => handleInputChange("id", event, setValues)}
-                                    defaultValue={values?.id}
-                                />
+                        <GridContainer>
+                            <InputCard
+                                id={"name"}
+                                label={"Nombre:"}
+                                placeholder="Ingrese su nombre"
+                                onChange={(event) => handleInputChange("nombre", event, setValues)}
+                                defaultValue={values?.nombre}
+                            />
+                            <InputCard
+                                id={"surnames"}
+                                label={"Apellidos:"}
+                                placeholder="Ingrese los apellidos"
+                                onChange={(event) => handleInputChange("apellido", event, setValues)}
+                                defaultValue={values?.apellido}
+                            />
+                        </GridContainer>
+                        <InputCard
+                            type="email"
+                            id={"email"}
+                            label={"Correo:"}
+                            placeholder="Ingrese su correo"
+                            onChange={(event) => handleInputChange("correo", event, setValues)}
+                            defaultValue={values?.correo}
+                        />
+                        <GridContainer padding={0}>
+                            <InputCard
+                                type="password"
+                                id={"password"}
+                                label={"Contraseña:"}
+                                placeholder="Ingrese su contraseña"
+                                onChange={(event) => handleInputChange("contrasena", event, setValues)}
+                                defaultValue={values?.contrasena}
+                            />
+                            <InputCard
+                                type="password"
+                                id={"confirm-password"}
+                                label={"Confirmar Contraseña:"}
+                                placeholder="Ingrese su contraseña"
+                                onChange={(event) => handleInputChange("confirmar_contraseña", event, setValues)}
+                                defaultValue={values?.confirmar_contraseña}
+                            />
+                        </GridContainer>
 
-                                <GridContainer>
-                                    <InputCard
-                                        id={"name"}
-                                        label={"Nombre:"}
-                                        placeholder="Ingrese su nombre"
-                                        onChange={(event) => handleInputChange("nombre", event, setValues)}
-                                        defaultValue={values?.nombre}
-                                    />
-                                    <InputCard
-                                        id={"surnames"}
-                                        label={"Apellidos:"}
-                                        placeholder="Ingrese los apellidos"
-                                        onChange={(event) => handleInputChange("apellido", event, setValues)}
-                                        defaultValue={values?.apellido}
-                                    />
-                                </GridContainer>
-                                <InputCard
-                                    type="email"
-                                    id={"email"}
-                                    label={"Correo:"}
-                                    placeholder="Ingrese su correo"
-                                    onChange={(event) => handleInputChange("correo", event, setValues)}
-                                    defaultValue={values?.correo}
-                                />
-                                <GridContainer padding={0}>
-                                    <InputCard
-                                        type="password"
-                                        id={"password"}
-                                        label={"Contraseña:"}
-                                        placeholder="Ingrese su contraseña"
-                                        onChange={(event) => handleInputChange("contrasena", event, setValues)}
-                                        defaultValue={values?.contrasena}
-                                    />
-                                    <InputCard
-                                        type="password"
-                                        id={"confirm-password"}
-                                        label={"Confirmar Contraseña:"}
-                                        placeholder="Ingrese su contraseña"
-                                        onChange={(event) => handleInputChange("confirmar_contraseña", event, setValues)}
-                                        defaultValue={values?.confirmar_contraseña}
-                                    />
-                                </GridContainer>
+                        <button type="submit">Crear cuenta</button>
+                    </form>
 
-                                <button type="submit">Crear cuenta</button>
-                            </form>
-
-                        </WrapperContainer2>
-                    </WrapperContainer2>
-                </FadeWrapper>
-        {/* </StyledSection> */}
-        </AuthWrapper>
+                </WrapperContainer2>
+            </WrapperContainer2>
+        </FadeWrapper>
     );
 }
 

@@ -38,9 +38,10 @@ const LoginScreen = () => {
 
         const { access_token } = await handlePostData(event, values, "/auth/login");
 
-        localStorage.setItem("access_token", access_token);
-
-        navigate("/home");
+        if (access_token) {
+            localStorage.setItem("access_token", access_token);
+            navigate("/home");
+        }
 
         setLoading(false);
     }

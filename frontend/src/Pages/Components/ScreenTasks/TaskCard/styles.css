@@ -3,3 +3,13 @@
     top: 30px;
     right: 30px;
 }
+
+.pendiente {
+    background-color: var(--to-do-1);
+}
+.en_progreso {
+    background-color: var(--process-1);
+}
+.completada {
+    background-color: var(--done-1);
+}

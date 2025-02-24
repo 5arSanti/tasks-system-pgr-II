@@ -2,7 +2,7 @@ import { Controller, Post, Body, Put, Param, Delete, UseGuards, Get, InternalSer
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 import { TasksService } from './services/tasks.service';
-import { CreateTaskDto, UpdateTaskDto } from './dto/tasks.dto';
+import { CreateTaskDto, TasksResponseDTO, UpdateTaskDto } from './dto/tasks.dto';
 
 @UseGuards(JwtAuthGuard, TeacherRoleGuard)
 @Controller('tasks')
@@ -23,9 +23,11 @@ export class TasksController {
   }
 
   @Get()
-  async findAll() {
+  async findAll(): Promise<TasksResponseDTO> {
     try {
-      return await this.tasksService.findAll();
+      const tasks = await this.tasksService.findAll();
+
+      return { tasks };
     }
     catch (error) {
       if (error instanceof HttpException) { throw error };

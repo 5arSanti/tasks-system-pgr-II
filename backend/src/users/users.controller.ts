@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpException, InternalServerErrorException, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './services/users.service';
-import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserResponseDTO } from './dto/users.dto';
+import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserResponseDTO, UsersResponseDTO } from './dto/users.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 
@@ -13,11 +13,11 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard, TeacherRoleGuard)
   @Get()
-  async getUsers(@Query() usersFilters: FilterUsersDTO): Promise<UserResponseDTO[]> {
+  async getUsers(@Query() usersFilters: FilterUsersDTO): Promise<UsersResponseDTO> {
     try {
       const users = await this.usersService.getUsers(usersFilters);
 
-      return users;
+      return { users };
     }
     catch (error) {
       if (error instanceof HttpException) { throw error };

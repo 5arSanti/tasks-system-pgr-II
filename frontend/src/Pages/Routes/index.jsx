@@ -7,6 +7,7 @@ import { AppContext } from "../../Context";
 import React from "react";
 import { TasksScreen } from "../Screens/TasksScreen";
 import { SubjectsScreen } from "../Screens/SubjectsScreen";
+import { UsersScreen } from "../Screens/UsersScreen";
 
 const AppRoutes = () => {
     const { auth } = React.useContext(AppContext);
@@ -17,6 +18,7 @@ const AppRoutes = () => {
 
         { path: "/tasks", element: <TasksScreen /> },
         { path: "/subjects", element: <SubjectsScreen /> },
+        { path: "/users", element: <UsersScreen /> },
 
         { path: "/login", element: !auth ? <LoginScreen /> : <Navigate replace to={"/home"} /> },
         { path: "/register", element: <RegisterScreen /> },

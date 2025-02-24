@@ -40,7 +40,7 @@ export class UserTaskDto {
     tarea_id: number;
 }
 
-export class TaskResponse {
+export class TaskResponseDTO {
     @IsNotEmpty()
     @IsNumber()
     @IsPositive()
@@ -83,3 +83,6 @@ export class TaskResponse {
     creator_lastname: string;
 }
 
+export class TasksResponseDTO {
+    tasks: TaskResponseDTO[];
+}

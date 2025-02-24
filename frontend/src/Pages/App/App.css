@@ -38,6 +38,13 @@
 
     --green-bg: #e6ffe2;
     --red-bg: #ffe5e3;
+
+
+    --to-do-1: #C8FBFF;
+
+	--process-1: #FBFFC8;
+
+	--done-1: #E1C8FF;
 }
 
 html {

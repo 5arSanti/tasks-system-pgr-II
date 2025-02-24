@@ -1,5 +1,5 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { TaskResponse, UserTaskDto } from 'src/tasks/dto/tasks.dto';
+import { TaskResponseDTO, UserTaskDto } from 'src/tasks/dto/tasks.dto';
 import { ValidateTasksService } from 'src/tasks/services/validate-tasks.service';
 import { ValidateUsersService } from 'src/users/services/validate-user.service';
 import { DataSource } from 'typeorm';
@@ -50,7 +50,7 @@ export class EnrollService {
     return { message: 'Tarea asignada correctamente' };
   }
 
-  async getEnrolledTasks(usuario_id: number): Promise<TaskResponse[]> {
+  async getEnrolledTasks(usuario_id: number): Promise<TaskResponseDTO[]> {
     await this.validateUsersService.validateUser(usuario_id);
 
     const query = `
@@ -72,12 +72,12 @@ export class EnrollService {
       FROM estados_tareas et 
         JOIN tareas t ON et.tarea_id = t.id
         JOIN asignaturas a ON t.asignatura_id = a.id
-        JOIN usuarios u ON et.usuario_id = u.id
+        JOIN usuarios u ON t.usuario_id = u.id
 
       WHERE et.usuario_id = ?
     `;
 
-    const tasksByUser = await this.dataSource.query(query, [usuario_id]);
+    const tasksByUser: TaskResponseDTO[] = await this.dataSource.query(query, [usuario_id]);
 
     return tasksByUser;
   }

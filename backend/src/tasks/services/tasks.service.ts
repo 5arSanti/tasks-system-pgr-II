@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateTaskDto, UpdateTaskDto, UserTaskDto } from '../dto/tasks.dto';
+import { CreateTaskDto, TaskResponseDTO, UpdateTaskDto, UserTaskDto } from '../dto/tasks.dto';
 import { DataSource } from 'typeorm';
 
 @Injectable()
@@ -18,10 +18,14 @@ export class TasksService {
         t.creado_en AS task_created_at,
         t.actualizado_en AS task_updated_at,
 
-        a.nombre AS subject_name
+        a.nombre AS subject_name,
+
+        u.nombre AS creator_name,
+        u.apellido AS creator_lastname
 
       FROM tareas t 
         JOIN asignaturas a ON t.asignatura_id = a.id
+        JOIN usuarios u ON t.usuario_id = u.id
 
       WHERE t.id = ?
     `;
@@ -33,7 +37,7 @@ export class TasksService {
   }
 
 
-  async findAll() {
+  async findAll(): Promise<TaskResponseDTO[]> {
     const query = `
       SELECT
         t.id AS task_id,
@@ -43,14 +47,18 @@ export class TasksService {
         t.creado_en AS task_created_at,
         t.actualizado_en AS task_updated_at,
 
-        a.nombre AS subject_name
+        a.nombre AS subject_name,
+
+        u.nombre AS creator_name,
+        u.apellido AS creator_lastname
 
       FROM tareas t 
         JOIN asignaturas a ON t.asignatura_id = a.id
+        JOIN usuarios u ON t.usuario_id = u.id
     `;
-    const tasks = await this.dataSource.query(query);
+    const tasks: TaskResponseDTO[] = await this.dataSource.query(query);
 
-    return { tasks };
+    return tasks;
   }
 
 

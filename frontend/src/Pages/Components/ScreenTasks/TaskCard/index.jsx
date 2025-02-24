@@ -13,6 +13,7 @@ import React from "react";
 import { AppContext } from "../../../../Context";
 import { handleDeleteData } from "../../../../utils/handleData/handleDeleteData";
 import { getToken } from "../../../../utils/getToken";
+import { IsAdminWrapper } from "../../AuthWrapper/IsAdminWrapper";
 
 const TaskCard = ({ item = {} }) => {
     const { setLoading } = React.useContext(AppContext);
@@ -26,14 +27,25 @@ const TaskCard = ({ item = {} }) => {
     }
 
     return (
-        <WrapperContainer1 flexDirection="column" padding={30} className="relative" height="auto">
-            <WrapperContainer2 width="50px" height="50px" padding={0} className="delete-button">
-                <ButtonCard padding={15} onClick={onDeleteTask}>
-                    <MdDeleteOutline />
-                </ButtonCard>
-            </WrapperContainer2>
+        <WrapperContainer1 flexDirection="column" alignItems="start" padding={30} className="relative" height="auto">
+
+            <IsAdminWrapper>
+                <WrapperContainer2 width="50px" height="50px" padding={0} className="delete-button">
+                    <ButtonCard padding={15} onClick={onDeleteTask}>
+                        <MdDeleteOutline />
+                    </ButtonCard>
+                </WrapperContainer2>
+            </IsAdminWrapper>
 
             <TextCard className="bold italic" fontSize={20}>{item.task_title}</TextCard>
+
+            {item.task_status &&
+                <WrapperContainer2 width="auto" height="auto" padding={"10px 20px"} className={`${item.task_status}`}>
+                    <TextCard className={`bold italic`} fontSize={14}>
+                        {item.task_status.toUpperCase()}
+                    </TextCard>
+                </WrapperContainer2>
+            }
 
             <TextCard fontSize={12} className="italic"><SpanCard fontSize={12}>Asignatura:</SpanCard> {item.subject_name}</TextCard>
 
@@ -42,6 +54,8 @@ const TaskCard = ({ item = {} }) => {
 
             <TextCard fontSize={12} className="italic"><SpanCard fontSize={12}>Fecha de entrega:</SpanCard></TextCard>
             <TextCard fontSize={18} className="bold">{moment(item.task_due_date).format("DD/MM/YYYY HH:mm")}</TextCard>
+
+            <TextCard fontSize={12} className="italic"><SpanCard fontSize={12}>Creada por :</SpanCard> {item.creator_name} {item.creator_lastname}</TextCard>
 
             <GridContainer className="grid-1-1">
                 <SubInfoCard

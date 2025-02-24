@@ -107,3 +107,7 @@ export class UserResponseDTO extends PartialType(UserIdDTO) {
     @IsString()
     role_name: string;
 }
+
+export class UsersResponseDTO {
+    users: UserResponseDTO[];
+}
