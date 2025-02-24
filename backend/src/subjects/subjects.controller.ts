@@ -17,7 +17,7 @@ export class SubjectsController {
     try {
       const subjects = await this.subjectsService.getSubjects();
 
-      return { success: true, subjects }
+      return { subjects }
     }
     catch (error) {
       if (error instanceof HttpException) { throw error };

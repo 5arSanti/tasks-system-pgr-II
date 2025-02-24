@@ -137,3 +137,7 @@ textarea {
 	white-space: nowrap;
 	overflow: hidden;
 }
+
+.date-input {
+	justify-content: center !important;
+}

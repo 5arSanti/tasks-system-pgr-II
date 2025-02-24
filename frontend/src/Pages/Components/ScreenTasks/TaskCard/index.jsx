@@ -26,7 +26,7 @@ const TaskCard = ({ item = {} }) => {
     }
 
     return (
-        <WrapperContainer1 flexDirection="column" padding={30} className="relative">
+        <WrapperContainer1 flexDirection="column" padding={30} className="relative" height="auto">
             <WrapperContainer2 width="50px" height="50px" padding={0} className="delete-button">
                 <ButtonCard padding={15} onClick={onDeleteTask}>
                     <MdDeleteOutline />

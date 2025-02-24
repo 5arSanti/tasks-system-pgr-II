@@ -1,6 +1,6 @@
 import "./styles.css";
 
-const ButtonCard = ({children, className="", title="", onClick, type="button", padding=20, borderWidth=1}) => {
+const ButtonCard = ({children, className="", title="", onClick=() => {}, type="button", padding=20, borderWidth=1}) => {
     return(
         <button
             className={`button-card-container ${className}`}

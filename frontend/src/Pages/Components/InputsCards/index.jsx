@@ -61,12 +61,12 @@ const OptionInputCard = ({
                 {none && 
                     <option value="">Seleccionar</option>
                 }
-                {array && array?.map((item, index) => (
+                {array && Array.isArray(array) && array?.map((item, index) => (
                     <option 
                         key={index}
                         value={item?.id || item}
                     >
-                        {item?.Nombre || item}
+                        {item?.name || item}
                     </option>
                 ))}
             </select>
@@ -129,5 +129,43 @@ const UploadFileCard = ({
     );
 }
 
+const DateInputCard = ({
+    id, 
+    label, 
+    onChange, 
+    required=true, 
+    defaultValue="", 
+    className="input-container", 
+    haveLabel=true
+}) => {
 
-export { InputCard, OptionInputCard, TextAreaCard, UploadFileCard };
+    const handleDateChange = (event) => {
+        const date = event.target.value;
+
+        if (date) {
+            const isoDate = new Date(date).toISOString();
+            onChange(isoDate);
+        } else {
+            onChange(null);
+        }
+    };
+
+    return (
+        <div className={`${className}`}>
+            {haveLabel && <label htmlFor={id}>{label} {required && "*"}</label>}
+            <input
+                className="icon-input-container date-input"
+                type="datetime-local"
+                name={id}
+                id={id}
+                onChange={handleDateChange}
+                required={required}
+                defaultValue={defaultValue}
+            />
+        </div>
+    );
+}
+
+
+
+export { InputCard, OptionInputCard, TextAreaCard, UploadFileCard, DateInputCard };

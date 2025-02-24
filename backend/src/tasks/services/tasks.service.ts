@@ -62,7 +62,7 @@ export class TasksService {
             VALUES (?, ?, ?, ?, ?)
         `;
 
-    await this.dataSource.query(query, [titulo, descripcion, fecha_entrega, asignatura_id, usuario_id]);
+    await this.dataSource.query(query, [titulo, descripcion, fecha_entrega.replace("Z", " "), asignatura_id, usuario_id]);
 
     return { message: 'Tarea creada correctamente' };
   }

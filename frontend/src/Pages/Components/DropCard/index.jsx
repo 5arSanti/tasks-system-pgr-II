@@ -8,7 +8,6 @@ import { TextCard } from '../TextComponents';
 import { IoSearch } from "react-icons/io5";
 
 import "./styles.css";
-import { Icons } from '../../../utils/Icons';
 
 const DropCard = ({title, array=[], onClick, value, searchBox=true, seeAllOption=true}) => {
 
@@ -24,7 +23,7 @@ const DropCard = ({title, array=[], onClick, value, searchBox=true, seeAllOption
                 <Dropdown.Toggle id="dropdown-card-basic" className='dropdown-card-button'>
                     {(value == "" || !value) && "Todo" || 
                     <>
-                        {Icons[value] || ""} {value}
+                        {value}
                     </>
                     }
                 </Dropdown.Toggle>
@@ -56,7 +55,6 @@ const DropCard = ({title, array=[], onClick, value, searchBox=true, seeAllOption
                                     setSearchValue("");
                                 }}>
                                     <TextCard>
-                                        {Icons[item] || ""}
                                         {item == 1 && "Si" || 
                                         item == 0 && "No" || 
                                         item}
