@@ -95,7 +95,7 @@ export class FilterUsersDTO {
     no_details?: boolean;
 }
 
-export class UserResponseDTO extends PartialType(UserIdDTO) {
+export class UserPrimaryInfoDTO extends PartialType(UserIdDTO) {
     @IsNotEmpty()
     @IsString()
     name: string;
@@ -103,7 +103,10 @@ export class UserResponseDTO extends PartialType(UserIdDTO) {
     @IsNotEmpty()
     @IsString()
     last_name: string;
+}
 
+
+export class UserResponseDTO extends PartialType(UserPrimaryInfoDTO) {
     @IsNotEmpty()
     @IsEmail()
     email: string;
@@ -117,12 +120,6 @@ export class UserResponseDTO extends PartialType(UserIdDTO) {
     role_name: string;
 }
 
-export class UsersNoDetailsResponseDTO extends PartialType(UserIdDTO) {
-    @IsNotEmpty()
-    @IsString()
-    name: string;
-}
-
 export class UsersResponseDTO {
-    users: UserResponseDTO[] | UsersNoDetailsResponseDTO[];
+    users: UserResponseDTO[] | UserPrimaryInfoDTO[];
 }

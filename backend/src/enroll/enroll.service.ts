@@ -1,6 +1,7 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { TaskResponseDTO, UserTaskDto } from 'src/tasks/dto/tasks.dto';
 import { ValidateTasksService } from 'src/tasks/services/validate-tasks.service';
+import { UserResponseDTO, UsersResponseDTO } from 'src/users/dto/users.dto';
 import { ValidateUsersService } from 'src/users/services/validate-user.service';
 import { DataSource } from 'typeorm';
 
@@ -11,6 +12,7 @@ export class EnrollService {
     private readonly validateUsersService: ValidateUsersService,
     private readonly validateTasksService: ValidateTasksService
   ) { }
+
 
   async validateEnrolledTask(assignTaskDto: UserTaskDto) {
     const { tarea_id, usuario_id } = assignTaskDto;
@@ -24,6 +26,7 @@ export class EnrollService {
 
     if (task) throw new BadRequestException('Este usuario ya tiene esta tarea asignada');
   }
+
 
   async enrollTask(assignTaskDto: UserTaskDto) {
     const { tarea_id, usuario_id } = assignTaskDto;
@@ -46,6 +49,7 @@ export class EnrollService {
     return { message: 'Tarea asignada correctamente' };
   }
 
+
   async deleteEnrolledTask(userTaskInfo: UserTaskDto) {
     const { tarea_id, usuario_id } = userTaskInfo;
 
@@ -65,7 +69,8 @@ export class EnrollService {
     return { message: 'Tarea asignada correctamente' };
   }
 
-  async getEnrolledTasks(usuario_id: number): Promise<TaskResponseDTO[]> {
+
+  async getEnrolledTasksByUser(usuario_id: number): Promise<TaskResponseDTO[]> {
     await this.validateUsersService.validateUser(usuario_id);
 
     const query = `
@@ -95,5 +100,30 @@ export class EnrollService {
     const tasksByUser: TaskResponseDTO[] = await this.dataSource.query(query, [usuario_id]);
 
     return tasksByUser;
+  }
+
+  
+  async getEnrolledUsersByTask(task_id: number): Promise<UserResponseDTO[]> {
+    await this.validateTasksService.validateTask(task_id);
+
+    const query = `
+      SELECT 
+        u.id AS id,
+        u.nombre AS name,
+        u.apellido AS last_name,
+        u.correo AS email,
+        r.id AS role_id,
+        r.nombre AS role_name
+
+      FROM estados_tareas et 
+        JOIN usuarios u ON et.usuario_id = u.id
+        JOIN roles r ON u.rol_id = r.id
+
+      WHERE et.tarea_id = ?
+    `;
+
+    const usersByTask: UserResponseDTO[] = await this.dataSource.query(query, [task_id]);
+
+    return usersByTask;
   }
 }

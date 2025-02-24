@@ -2,7 +2,7 @@ import { BadRequestException, Inject, Injectable, NotFoundException } from '@nes
 import { JwtService } from '@nestjs/jwt';
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { FilterUsersDTO, RegisterUserDTO, UserDTO, UserIdDTO, UserResponseDTO, UsersNoDetailsResponseDTO } from '../dto/users.dto';
+import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserPrimaryInfoDTO, UserResponseDTO } from '../dto/users.dto';
 
 
 @Injectable()
@@ -11,15 +11,15 @@ export class UsersService {
         @Inject('DATA_SOURCE') private readonly dataSource: DataSource,
     ) { }
 
-    async getUsers(usersFilters: FilterUsersDTO): Promise<UserResponseDTO[] | UsersNoDetailsResponseDTO[]> {
+    async getUsers(usersFilters: FilterUsersDTO): Promise<UserResponseDTO[] | UserPrimaryInfoDTO[]> {
         let selectFields = `
             u.id AS id,
-            u.nombre AS name
+            u.nombre AS name,
+            u.apellido AS last_name
         `;
 
         if (!usersFilters.no_details) {
             selectFields += `,
-                u.apellido AS last_name,
                 u.correo AS email,
                 r.id AS role_id,
                 r.nombre AS role_name

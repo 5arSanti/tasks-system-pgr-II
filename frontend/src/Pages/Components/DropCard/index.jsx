@@ -14,7 +14,11 @@ const DropCard = ({ title, array = [], onClick, value, searchBox = true, seeAllO
 
     const filteredArray = (searchValue.trim().toLocaleLowerCase() === '') ? 
         array : 
-        array.filter(item => item.name?.toLocaleLowerCase().includes(searchValue));
+        array.filter(item => 
+            item.name?.toLocaleLowerCase().includes(searchValue) ||
+            item.id?.toLocaleLowerCase().includes(searchValue) ||
+            item.last_name?.toLocaleLowerCase().includes(searchValue)
+        );
 
     return (
         <WrapperContainer2 padding={0} flexDirection='column' justifyContent='start' alignItems='start' gap={10}>
@@ -55,7 +59,7 @@ const DropCard = ({ title, array = [], onClick, value, searchBox = true, seeAllO
                                 onClick(item.id)
                                 setSearchValue("");
                             }}>
-                                <TextCard>{item.name}</TextCard>
+                                <TextCard>{item.name} {item.last_name}</TextCard>
                             </Dropdown.Item>
                         ))}
                     </ScrollableWrapper>

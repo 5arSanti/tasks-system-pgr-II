@@ -30,7 +30,7 @@ const TaskCard = ({ item = {}, details = true }) => {
     }
 
     return (
-        <WrapperContainer1 flexDirection="column" alignItems="start" padding={30} className="relative" height="auto">
+        <WrapperContainer1 flexDirection="column" alignItems="start" padding={30} className="relative">
 
             <IsAdminWrapper>
                 <WrapperContainer2 flexDirection="column" width="auto" height="50px" padding={0} className="delete-button">

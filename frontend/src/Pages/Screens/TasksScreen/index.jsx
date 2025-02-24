@@ -17,7 +17,7 @@ const TasksScreen = () => {
     React.useEffect(() => {
         if (user) {
             const endpoints = [
-                (user.rol_id === 1) ? "tasks" : `enroll/${user.id}`
+                (user.rol_id === 1) ? "tasks" : `enroll/users/${user.id}`
             ]
 
             fetchData(endpoints)

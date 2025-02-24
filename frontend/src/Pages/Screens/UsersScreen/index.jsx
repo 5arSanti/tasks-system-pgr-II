@@ -14,16 +14,14 @@ const UsersScreen = () => {
 
     const [createModal, setCreateModal] = React.useState(false);
 
-    React.useEffect(() => {
-        if (users) { return }
-        
+    React.useEffect(() => {        
         const endpoints = [
             "users"
         ]
 
         fetchData(endpoints)
 
-    }, [users]);
+    }, []);
 
     return (
         <AuthWrapper>

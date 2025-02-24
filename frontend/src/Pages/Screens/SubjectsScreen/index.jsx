@@ -43,11 +43,10 @@ const SubjectsScreen = () => {
 
                     <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
                         <SubTitle>Listado de asignaturas creadas</SubTitle>
-                        <GridContainer className="grid-1-1-1">
-                            {subjects && subjects?.map((task, index) => (
-                                <SubjectCard key={index} item={task} />
-                            ))}
-                        </GridContainer>
+
+                        {subjects && subjects?.map((task, index) => (
+                            <SubjectCard key={index} item={task} />
+                        ))}
                     </WrapperContainer2>
                 </WrapperContainer2>
             </IsAdminWrapper>

@@ -4,7 +4,6 @@ import { handlePostData } from "../../../../utils/handleData/handlePostData";
 import { WrapperContainer2 } from "../../WrapperContainers";
 import { AppContext } from "../../../../Context";
 import { SubTitle } from "../../SubTitle";
-import { GridContainer } from "../../GridContainer";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { ButtonCard } from "../../ButtonCard";
 import { reloadLocation } from "../../../../utils/realoadLocation";
