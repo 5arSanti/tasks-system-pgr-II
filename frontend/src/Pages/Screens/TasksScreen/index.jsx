@@ -17,7 +17,7 @@ const TasksScreen = () => {
     React.useEffect(() => {
         if (user) {
             const endpoints = [
-                (user.rol_id === 1) ? "tasks" : `enroll/users/${user.id}`
+                (user.rol_id === 1) ? "tasks" : `enroll/tasks/${user.id}`
             ]
 
             fetchData(endpoints)
@@ -40,7 +40,7 @@ const TasksScreen = () => {
                 {createTaskModal && <CreateTaskForm />}
 
                 <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
-                    <SubTitle>Listado de tareas creadas</SubTitle>
+                    <SubTitle>Listado de tareas</SubTitle>
                     {tasks && tasks?.map((task, index) => (
                         <TaskCard key={index} item={task} />
                     ))}

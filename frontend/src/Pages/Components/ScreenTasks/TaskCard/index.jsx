@@ -32,20 +32,22 @@ const TaskCard = ({ item = {}, details = true }) => {
     return (
         <WrapperContainer1 flexDirection="column" alignItems="start" padding={30} className="relative">
 
-            <IsAdminWrapper>
-                <WrapperContainer2 flexDirection="column" width="auto" height="50px" padding={0} className="delete-button">
-                    {details &&
-                        <Link to={`/tasks/${item.task_id}`}>
-                            <ButtonCard padding={20} title="Detalles de la tarea">
-                                <MdManageAccounts /> Detalles
-                            </ButtonCard>
-                        </Link>
-                    }
+
+            <WrapperContainer2 flexDirection="column" width="auto" height="50px" padding={0} className="delete-button">
+                {details &&
+                    <Link to={`/tasks/${item.task_id}`}>
+                        <ButtonCard padding={20} title="Detalles de la tarea">
+                            <MdManageAccounts /> Detalles
+                        </ButtonCard>
+                    </Link>
+                }
+                <IsAdminWrapper>
                     <ButtonCard padding={20} title="Eliminar tarea" onClick={onDeleteTask}>
                         <MdDeleteOutline /> Eliminar
                     </ButtonCard>
-                </WrapperContainer2>
-            </IsAdminWrapper>
+                </IsAdminWrapper>
+            </WrapperContainer2>
+
 
             <TextCard className="bold italic" fontSize={20}>{item.task_title}</TextCard>
 

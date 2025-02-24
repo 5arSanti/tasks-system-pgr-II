@@ -4,7 +4,7 @@ import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 import { TasksService } from './services/tasks.service';
 import { CreateTaskDto, TasksResponseDTO, UpdateTaskDto } from './dto/tasks.dto';
 
-@UseGuards(JwtAuthGuard, TeacherRoleGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) { }
@@ -14,7 +14,7 @@ export class TasksController {
     try {
       return await this.tasksService.findOne(task_id);
 
-    } 
+    }
     catch (error) {
       if (error instanceof HttpException) { throw error };
 
@@ -36,11 +36,12 @@ export class TasksController {
     }
   }
 
+  @UseGuards(TeacherRoleGuard)
   @Post()
   async create(@Body() createTaskDto: CreateTaskDto) {
     try {
       return await this.tasksService.create(createTaskDto);
-    } 
+    }
     catch (error) {
       if (error instanceof HttpException) { throw error };
 
@@ -48,12 +49,13 @@ export class TasksController {
     }
   }
 
+  @UseGuards(TeacherRoleGuard)
   @Put(':task_id')
   async update(@Param('task_id') task_id: number, @Body() updateTaskDto: UpdateTaskDto) {
     try {
       return await this.tasksService.update(task_id, updateTaskDto);
 
-    } 
+    }
     catch (error) {
       if (error instanceof HttpException) { throw error };
 
@@ -61,11 +63,12 @@ export class TasksController {
     }
   }
 
+  @UseGuards(TeacherRoleGuard)
   @Delete(':id')
   async remove(@Param('id') id: number) {
     try {
       return await this.tasksService.remove(id);
-    } 
+    }
     catch (error) {
       if (error instanceof HttpException) { throw error };
 
