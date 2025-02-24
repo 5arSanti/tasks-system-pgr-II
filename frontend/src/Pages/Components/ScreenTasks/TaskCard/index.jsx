@@ -15,7 +15,10 @@ import { handleDeleteData } from "../../../../utils/handleData/handleDeleteData"
 import { getToken } from "../../../../utils/getToken";
 import { IsAdminWrapper } from "../../AuthWrapper/IsAdminWrapper";
 
-const TaskCard = ({ item = {} }) => {
+import { MdManageAccounts } from "react-icons/md";
+import { Link } from "react-router-dom";
+
+const TaskCard = ({ item = {}, details = true }) => {
     const { setLoading } = React.useContext(AppContext);
 
     const onDeleteTask = async (event) => {
@@ -30,9 +33,16 @@ const TaskCard = ({ item = {} }) => {
         <WrapperContainer1 flexDirection="column" alignItems="start" padding={30} className="relative" height="auto">
 
             <IsAdminWrapper>
-                <WrapperContainer2 width="50px" height="50px" padding={0} className="delete-button">
-                    <ButtonCard padding={15} onClick={onDeleteTask}>
-                        <MdDeleteOutline />
+                <WrapperContainer2 flexDirection="column" width="auto" height="50px" padding={0} className="delete-button">
+                    {details &&
+                        <Link to={`/tasks/${item.task_id}`}>
+                            <ButtonCard padding={20} title="Detalles de la tarea">
+                                <MdManageAccounts /> Detalles
+                            </ButtonCard>
+                        </Link>
+                    }
+                    <ButtonCard padding={20} title="Eliminar tarea" onClick={onDeleteTask}>
+                        <MdDeleteOutline /> Eliminar
                     </ButtonCard>
                 </WrapperContainer2>
             </IsAdminWrapper>

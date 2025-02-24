@@ -6,9 +6,6 @@ import { WrapperContainer1, WrapperContainer2 } from "../../WrapperContainers";
 import { ButtonCard } from "../../ButtonCard";
 import { MdDeleteOutline } from "react-icons/md";
 import { SpanCard, TextCard } from "../../TextComponents";
-import moment from "moment";
-import { GridContainer } from "../../GridContainer";
-import { SubInfoCard } from "../../SubInfoCard";
 
 const UserCard = ({ item = {} }) => {
     const { setLoading } = React.useContext(AppContext);
@@ -16,7 +13,7 @@ const UserCard = ({ item = {} }) => {
     const onDeleteTask = async (event) => {
         setLoading(true);
 
-        await handleDeleteData(event, `/users/${item.id}`, getToken());
+        await handleDeleteData(event, `/users?id=${item.id}`, getToken());
 
         setLoading(false);
     }
